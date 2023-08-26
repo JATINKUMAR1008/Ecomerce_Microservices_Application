@@ -15,6 +15,7 @@ class User(db.Model):
     def __repr__(self):
         return f"User('{self.username}','{self.email}','{self.addresses}')"
 db.create_all() 
+
 class Address(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     area = db.Column(db.String(60),nullable=False)

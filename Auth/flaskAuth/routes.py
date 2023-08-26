@@ -19,7 +19,8 @@ adds_schema = AddresseSchema(many=True)
 @app.route('/home')
 def home():
     return "hello"
-@app.route('/user',methods = ['POST','GET','PUT','DELETE'])
+## // route will be /user
+@app.route('/',methods = ['POST','GET','PUT','DELETE'])
 def user_info():
     if(request.method == "POST"):
         username = request.json['username']
@@ -59,7 +60,7 @@ def user_info():
         else:
             return jsonify({"success": False})
 
-
+#// route will be /user/auth
 @app.route('/auth',methods = ['POST']) 
 def auth():
     email = request.json['email']
@@ -74,8 +75,8 @@ def auth():
         return jsonify({"success": False,"message":"Wrong Credentials"})
 
 
-
-@app.route('/user/address/<user_id>',methods = ['GET','POST','DELETE','PUT'])
+#// route will be /user/address/<user_id>
+@app.route('/address/<user_id>',methods = ['GET','POST','DELETE','PUT'])
 def add_reference(user_id):
     if request.method == 'POST':
         area = request.json['area']

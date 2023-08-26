@@ -1,0 +1,16 @@
+version: '3'
+services:
+  auth:
+    image: auth_api:0.1
+    build: ./Auth
+    ports:
+      - 5001:5000
+    volumes:
+      - ./Database/auth:/python-api/instance
+  products:
+    image: product_api:0.1
+    build: ./Products_Catalog
+    ports:
+      - 5002:5000
+    volumes:
+      - ./Database/products:/python-api/instance
