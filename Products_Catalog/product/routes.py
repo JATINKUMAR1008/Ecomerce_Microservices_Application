@@ -32,9 +32,18 @@ def prod():
             return jsonify({"status":False,"message":"Error Occurred"})
 
     if request.method == 'GET':
-        all_prod = Product.query.all()
-        ap = prods_schema.dump(all_prod)
-        return jsonify(ap)
+        if request.query_string:
+            cat = request.args.get('category')
+            prods = Product.query.filter_by(category=cat)
+            prods_sc = prods_schema.dump(prods)
+            return jsonify(prods_sc)
+
+        else:
+            all_prod = Product.query.all()
+            ap = prods_schema.dump(all_prod)
+            return jsonify(ap)
+    
+
     
     if request.method == 'PUT':
         _id = request.args.get('id')

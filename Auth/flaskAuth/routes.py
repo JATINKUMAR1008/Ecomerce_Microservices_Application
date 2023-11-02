@@ -15,7 +15,7 @@ class AddresseSchema(ma.Schema):
 add_schema = AddresseSchema()
 adds_schema = AddresseSchema(many=True)
 
-@app.route('/')
+
 @app.route('/home')
 def home():
     return "hello"
@@ -29,8 +29,9 @@ def user_info():
         hashed_password = bcypt.generate_password_hash(password).decode('utf-8')
         user_attr = User(username,email,hashed_password)
         db.session.add(user_attr)
-        db.session.commit() 
-        return user_schema.jsonify(user_attr)
+        db.session.commit()
+        user = user_schema.dump(user_attr) 
+        return jsonify({"success": True,"user":user})
     elif request.method == 'GET':
         user = User.query.all()
         users = users_schema.dump(user)
@@ -73,7 +74,6 @@ def auth():
             return jsonify({"success": False,"message":"Wrong Credentials"})
     except:
         return jsonify({"success": False,"message":"Wrong Credentials"})
-
 
 #// route will be /user/address/<user_id>
 @app.route('/address/<user_id>',methods = ['GET','POST','DELETE','PUT'])

@@ -8,7 +8,7 @@ cart_schema = CartSchema()
 carts_schema = CartSchema(many=True)
 
 @app.route('/',methods=['GET','POST','PUT','DELETE'])
-def ret():
+def ref():
     if request.method == "GET":
         _id = request.args.get('user_id')
         cart_items = Cart.query.filter_by(user_id=_id).all()
@@ -27,7 +27,7 @@ def ret():
         return jsonify({"success":True,"cart":cart})
     
     
-@app.route('/cart',method=['GET','PUT','DELETE'])
+@app.route('/cart',methods=['GET','PUT','DELETE'])
 def cart_ref():
     if request.method=='GET':
         _id = request.queru.get('id')
