@@ -13,9 +13,10 @@ import {
 } from "@/components/ui/hover-card"
 import React from "react"
 import CartItems from "./cart-items"
+import { useAppSelecto } from "../../../../redux/store"
 
 export function CartHover({children}:{children:React.ReactNode}) {
-    const login = true
+    const login = useAppSelecto((state)=>state.authReducer.value.isAuth)
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
@@ -28,9 +29,10 @@ export function CartHover({children}:{children:React.ReactNode}) {
           <div className="space-y-1">
             {login?(
                 <>
-                <CartItems/></>
+                <CartItems/>
+                </>
             ):(
-                <p>Login first to show your cart itmes.</p>
+                <p className="my-5">Login first to show your cart itmes.</p>
             )}
           </div>
         </div>

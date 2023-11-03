@@ -30,14 +30,14 @@ def ref():
 @app.route('/cart',methods=['GET','PUT','DELETE'])
 def cart_ref():
     if request.method=='GET':
-        _id = request.queru.get('id')
+        _id = request.args.get('id')
         cart_data = cart_schema.dump(Cart.query.get(_id).first())
         return jsonify({"success":True,"cart_data":cart_data})
 
     if request.method == "PUT":
         _id = request.args.get('id')
 
-        _cart = Cart.query.get(_id).first()
+        _cart = Cart.query.get(id=_id).first()
         _cart.user_id = request.json['user_id']
         _cart.p_id = request.json['p_id']
         _cart.qty = request.json['qty']
@@ -46,7 +46,7 @@ def cart_ref():
         return jsonify({"success":True})
     if request.method == "DELETE":
         _id = request.args.get('id')
-        _temp = Cart.query.get(_id).first()
+        _temp = Cart.query.get(_id)
         db.session.delete(_temp)
         db.session.commit()
         return jsonify({"success":True})

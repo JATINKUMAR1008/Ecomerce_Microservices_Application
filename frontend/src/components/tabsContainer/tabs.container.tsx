@@ -9,14 +9,36 @@ export default function TabsContainer(){
                 <TabsTrigger value="clothings">Clothings</TabsTrigger>
                 <TabsTrigger value="smartphones">Smartphones</TabsTrigger>
                 <TabsTrigger value="electronics">Electronics</TabsTrigger>
-                <TabsTrigger value="grocery">Groceries</TabsTrigger>
+                <TabsTrigger value="groceries">Groceries</TabsTrigger>
             </TabsList>
             <TabsContent value="all">
-                <CardContainer/>
+                <CardContainer params={
+                    {
+                        query: undefined
+                    }
+                }/>
             </TabsContent>
             <TabsContent value="clothings">
-                
+                <CardContainer params={{
+                    query : 'clothings'
+                }}/>
             </TabsContent>
+            <TabsContent value="smartphones">
+                <CardContainer params={{
+                    query : 'smartphones'
+                }}/>
+            </TabsContent>
+            <TabsContent value="electronics">
+                <CardContainer params={{
+                    query : 'electronics'
+                }}/>
+            </TabsContent>
+            <TabsContent value="groceries">
+                <CardContainer params={{
+                    query : 'groceries'
+                }}/>
+            </TabsContent>
+
         </Tabs>
     )
 }

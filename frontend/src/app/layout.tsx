@@ -12,6 +12,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from 'react-query'
+import ReduxProvider from '../../redux/provider'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({
@@ -22,7 +23,7 @@ export default function RootLayout({
   const queryClient = new QueryClient()
   return (
     <html lang="en">
-      <body className={inter.className}><QueryClientProvider client={queryClient}><NextTopLoader/><Navbar/>{children}<Toaster/></QueryClientProvider></body>
+      <body className={inter.className}><QueryClientProvider client={queryClient}><ReduxProvider><NextTopLoader/><Navbar/>{children}<Toaster/></ReduxProvider></QueryClientProvider></body>
     </html>
   )
 }

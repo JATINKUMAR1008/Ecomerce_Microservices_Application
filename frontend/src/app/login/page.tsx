@@ -17,6 +17,8 @@ import React, { useState } from "react"
 import { Router } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/components/ui/use-toast"
+import { useDispatch } from "react-redux"
+import { logIn } from "../../../redux/features/auth-slice"
 interface fromData{
     username: string,
     email: string,
@@ -27,6 +29,7 @@ interface IGETAuthResponse{
     message: string
 }
 export default function Login() {
+    const dispatch = useDispatch()
     const router = useRouter()
 
     const initialState = {
@@ -49,10 +52,12 @@ export default function Login() {
         e.preventDefault()
         const data = await getUserAuth(formData)
         if(data.success){
+            dispatch(logIn({user: data.user}))
             toast({
                 title: 'Login Successfully',
                 description: "Login "
             })
+            router.push('/')
         }else{
             toast({
                 title: 'Login Unsuccessfull',
@@ -64,10 +69,12 @@ export default function Login() {
         e.preventDefault()
         const data = await registerUserAuth(formData)
         if(data.success){
+            dispatch(logIn({user: data.user}))
             toast({
                 title: 'Login Successfully',
                 description: "Login"
             })
+            router.push('/')
         }else{
             toast({
                 title: 'Login Unsuccessfull',

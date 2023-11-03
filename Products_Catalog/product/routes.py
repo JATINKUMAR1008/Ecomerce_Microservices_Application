@@ -9,6 +9,13 @@ class ProductSchema(ma.Schema):
 prod_schema = ProductSchema()
 prods_schema = ProductSchema(many=True)
 
+@app.route('/prod',methods=['GET'])
+def get():
+    if request.method == 'GET':
+        id = request.args.get('id')
+        data = Product.query.filter_by(id=id).first()
+        _data = prod_schema.dump(data)
+        return jsonify(_data)
 @app.route('/',methods= ['GET','POST','PUT','DELETE'])
 def prod():
     if request.method == 'POST':
@@ -34,7 +41,8 @@ def prod():
     if request.method == 'GET':
         if request.query_string:
             cat = request.args.get('category')
-            prods = Product.query.filter_by(category=cat)
+            prods = Product.query.filter_by(category=cat).all()
+            print(prods)
             prods_sc = prods_schema.dump(prods)
             return jsonify(prods_sc)
 
