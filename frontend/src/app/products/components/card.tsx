@@ -2,6 +2,7 @@ import Link from "next/link"
 import { BiTaxi } from "react-icons/bi"
 import { useAppSelecto } from "../../../../redux/store"
 import { useToast } from "@/components/ui/use-toast"
+import { wordlimiter } from "@/utlis/helper"
 interface CardData{
     id: number
     name: string,
@@ -50,7 +51,7 @@ export default function Card ({params}:{params: CardData}){
             <Link href={`/product/${params.id}`} className=" flex flex-col">
             <span className="flex flex-col justify-center">
                 <img src={`http://localhost:8080/image/img?id=${params.id}&name=${params.name}&type=product`} className=" w-full h-40 object-cover rounded-md"/>
-                <h3 className="my-1 font-semibold text-xl px-3 capitalize">{params.name}</h3>
+                <h3 className="my-1 font-semibold text-xl px-3 capitalize">{wordlimiter(params.name,20)}</h3>
             </span>
             <span className="flex items-center space-x-2 px-3 text-sm my-1">
                 <p className="text-red-400">-40%</p>
@@ -65,7 +66,7 @@ export default function Card ({params}:{params: CardData}){
                 <button className="outline outline-1 outline-gray-400 py-2 px-3 rounded-sm">
                     Buy now
                 </button>
-                <button className="outline outline-1 text-black outline-gray-400 py-2 bg-white px-3 rounded-sm" onClick={()=>clickToCart()} disabled={!auth}>
+                <button className="outline outline-1 text-black outline-gray-400 py-2 bg-white px-3 rounded-sm disabled:bg-gray-100 disabled:line-through" onClick={()=>clickToCart()} disabled={!auth}>
                     Add to cart
                 </button>
             </div>

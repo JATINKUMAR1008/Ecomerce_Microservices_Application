@@ -19,6 +19,7 @@ import { logOut } from "../../../../redux/features/auth-slice"
 import Link from "next/link"
 import { useAppSelecto } from "../../../../redux/store"
 import ImageUploader from "@/app/account/components/image-update-dailog"
+import { DialogSettings } from "./settings-dialog"
 Button
 export default function AccoutMenu({ children }: { children: React.ReactNode }) {
     const dispatch = useDispatch()
@@ -46,10 +47,13 @@ export default function AccoutMenu({ children }: { children: React.ReactNode }) 
 
                         <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        Settings
-                        <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                    </DropdownMenuItem>
+
+                    <DialogSettings>
+                       <p className="relative flex cursor-pointer hover:bg-gray-100 w-full select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground">Settings</p>
+
+                    </DialogSettings>
+
+
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
 

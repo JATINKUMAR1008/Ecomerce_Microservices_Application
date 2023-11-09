@@ -4,6 +4,7 @@ import { fetchCart, fetchProducts } from '@/utlis/product'
 import { useEffect, useState } from 'react'
 import { useToast } from '@/components/ui/use-toast'
 import { useQuery } from 'react-query'
+import { wordlimiter } from '@/utlis/helper'
 interface CartData {
     user_id: number,
     p_id: number,
@@ -97,7 +98,7 @@ const Cart_item = ({ params, handleDelete }: { params: CartData, handleDelete: (
             <img src={`http://localhost:8080/image/img?id=${data[0]?.id}&name=${data[0]?.name}&type=product`} className="w-18 h-16 object-cover" />
             <div className="flex items-center w-full justify-between">
                 <span className="flex flex-col items-start">
-                    <p>{data[0]?.name}</p>
+                    <p className='text-left'>{wordlimiter(data[0]?.name,30)}</p>
                     <p className="text-sm font-extralight italic">qty: 2</p>
                 </span>
                 <button onClick={() => handleDelete(params.id)}>
