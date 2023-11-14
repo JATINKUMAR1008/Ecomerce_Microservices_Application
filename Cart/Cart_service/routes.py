@@ -3,7 +3,7 @@ from Cart_service.models import Cart
 from flask import request,jsonify
 class CartSchema(ma.Schema):
     class Meta:
-        fields = ("id","user_id","p_id","qty")
+        fields = ("id","user_id","p_id","qty","price")
 cart_schema = CartSchema()
 carts_schema = CartSchema(many=True)
 
@@ -13,13 +13,14 @@ def ref():
         _id = request.args.get('user_id')
         cart_items = Cart.query.filter_by(user_id=_id).all()
         _ = carts_schema.dump(cart_items)
-        return jsonify(_)
+        total = sum(item.price * item.qty for item in cart_items)
+        return jsonify({"cart_data":_,"total": total})
     if request.method == "POST":
         user_id = request.json['user_id']
         p_id = request.json['p_id']
         qty = request.json['qty']
-
-        new_Cart = Cart(user_id,p_id,qty)
+        price = request.json['price']
+        new_Cart = Cart(user_id,p_id,qty,price)
         db.session.add(new_Cart)
         db.session.commit()
 
@@ -36,12 +37,11 @@ def cart_ref():
 
     if request.method == "PUT":
         _id = request.args.get('id')
-
-        _cart = Cart.query.get(id=_id).first()
+        _cart = Cart.query.get(_id)
         _cart.user_id = request.json['user_id']
         _cart.p_id = request.json['p_id']
         _cart.qty = request.json['qty']
-
+        _cart.price = request.json['price']
         db.session.commit()
         return jsonify({"success":True})
     if request.method == "DELETE":

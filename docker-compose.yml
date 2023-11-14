@@ -22,7 +22,7 @@ services:
     ports:
       - 5003:5000
     volumes: 
-      - ./Database/cart:/python-api/instance
+      - ./Database/Cart:/python-api/instance
   images:
     image: image_api:0.1
     build: ./Images
