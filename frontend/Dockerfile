@@ -28,7 +28,7 @@ WORKDIR /app
 # Declare the NODE_ENV
 ENV NODE_ENV production
 # Set build-time environment variable
-ENV NEXT_PUBLIC_API=""
+
 
 
 # Add the Group and User to Container 
